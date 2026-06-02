@@ -7,8 +7,11 @@ export const SERVER_HOST = '0.0.0.0';
 export const REFRESH_RATE_SECONDS = 60;
 export const TIMEZONE = 'Europe/Warsaw';
 export const ALLOW_FIRMWARE_UPDATE = true;
-export const BUTTON_2_CLICK_FUNCTION = 'sleep'; // https://help.usetrmnl.com/en/articles/9672080-special-functions
-export let BYOS_ENABLED = false;
+export const BUTTON_2_CLICK_FUNCTION = "sleep"; // https://help.usetrmnl.com/en/articles/9672080-special-functions
+const envByosEnabled = process.env?.["BYOS_NL_BYOS_ENABLED"];
+export let BYOS_ENABLED: boolean = envByosEnabled
+  ? envByosEnabled === "true"
+  : true;
 export let BYOS_PROXY = false;
 
 // ----- Calculated constants below

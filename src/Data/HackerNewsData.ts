@@ -12,11 +12,27 @@ export type HackerNewsData = {
 
 
 export async function getHackerNews(): Promise<HackerNewsData> {
-    const response = await fetch('https://hacker-news.firebaseio.com/v0/topstories.json');
-    let ids: number[] = await response.json();
-    ids = ids.slice(0, 20);
-    return Promise.all(ids.map(async (id) => {
-        const response = await fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`);
-        return response.json();
-    }));
+  const response = await fetch(
+    "https://hacker-news.firebaseio.com/v0/topstories.json",
+  );
+
+  let ids: number[] = await response.json();
+
+  ids = ids.slice(0, 5);
+  return Promise.all(
+    ids.map(async (id, index) => {
+      let response;
+      try {
+        response = await fetch(
+          `https://hacker-news.firebaseio.com/v0/item/${id}.json`,
+        );
+      } catch (error: any) {
+        console.log(
+          `error while fetching hacker-news story number ${index}:\n${error.cause}`,
+        );
+        throw error;
+      }
+      return response.json();
+    }),
+  );
 }
