@@ -62,7 +62,7 @@
             ];
 
             shellHook = ''
-              export BYOS_NL_BYOS_ENABLED=true
+              export BYOS_ENABLED=true
               export PUPPETEER_SKIP_DOWNLOAD=1
               export PUPPETEER_EXECUTABLE_PATH=${lib.getExe pkgs.chromium}
               echo "🟢 node $(node --version)"
